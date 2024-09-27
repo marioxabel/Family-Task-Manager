@@ -4,7 +4,7 @@ import User from './user.js';
 import Child from './child.js';
 import Chore from './chore.js';
 import Prize from './prize.js';
-import Child_Prize from './child_Prize.js';
+import Child_Prize from './child-prize.js';
 import Notification from './notification.js';
 
 // Define relationships
