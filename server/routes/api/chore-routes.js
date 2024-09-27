@@ -1,5 +1,5 @@
 import express from 'express';
-import Chore from '../../models/chore.js';  // Assuming Joke model is correctly imported
+import Chore from '../../models/chore.js';  // Assuming Chore model is correctly imported
 
 
 const router = express.Router();
@@ -42,9 +42,9 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         const chore = await Chore.findByPk(req.params.id);
-        if (joke) {
+        if (chore) {
             await chore.update(req.body);
-            res.status(200).json(joke);
+            res.status(200).json(chore);
         } else {
             res.status(404).json({ error: 'Chore not found' });
         }
