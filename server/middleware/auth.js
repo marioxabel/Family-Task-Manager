@@ -10,12 +10,12 @@ export const authenticateToken = (req, res, next) => {
 
         jwt.verify(token, secret, (err, user) => {
             if (err) {
-                return res.sendSatus(403);
+                return res.sendStatus(403);
             }
             req.user = user;
             return next();
         })
     } else {
-        res.sendSatus(401);
+        res.sendStatus(401);
     }
 }
