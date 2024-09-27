@@ -1,9 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/connection.js';
 
-class Child_Prize extends Model {}
+class ChildPrize extends Model {}
 
-Child_Prize.init({
+ChildPrize.init({
   child_id: {
     type: DataTypes.INTEGER,
     allowNull: false
@@ -25,7 +25,7 @@ Child_Prize.init({
   timestamps: false  // Manually manage timestamps
 });
 
-export default Child_Prize;  // Ensure a default export
+export default ChildPrize;  // Ensure a default export
 
 
 /*hild_Prize Model
