@@ -7,15 +7,15 @@ import bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
 // Login function to authenticate a user
 export const login = async (req, res) => {
   console.log("Login route hit"); // Add this line for debugging
-  const { email, password, userType } = req.body;  // Extract email, password, and userType from request body
-  console.log("Received credentials:", { email, password, userType }); // Debugging line
+  const { email, password, type } = req.body;  // Extract email, password, and type from request body
+  console.log("Received credentials:", { email, password, type }); // Debugging line
 
   let user;
 
   // Check the user type and find the user in the corresponding table
-  if (userType === 'parent') {
+  if (type === 'parent') {
     user = await Parent.findOne({ where: { email } });
-  } else if (userType === 'child') {
+  } else if (type === 'child') {
     user = await Child.findOne({ where: { email } });
   } else {
     return res.status(400).json({ message: 'Invalid user type' }); // Handle invalid user type
@@ -43,7 +43,7 @@ export const login = async (req, res) => {
   const secretKey = process.env.JWT_SECRET_KEY || '';
 
   // Generate a JWT token for the authenticated user
-  const token = jwt.sign({ email, userType }, secretKey, { expiresIn: '1h' });
+  const token = jwt.sign({ email, type }, secretKey, { expiresIn: '1h' });
 
   return res.json({ token });  // Send the token as a JSON response
 };
