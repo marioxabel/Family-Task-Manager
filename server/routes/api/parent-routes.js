@@ -51,16 +51,7 @@ router.get('/:id/children', async (req, res) => {
 });
 
 
-// POST /parents - Create a new parent
-router.post('/', async (req, res) => {
-  const { first_name, last_name, email, password } = req.body;
-  try {
-    const newParent = await Parent.create({ first_name, last_name, email, password });
-    res.status(201).json(newParent);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
+
 
 // PUT /parents/:id - Update a parent by id
 router.put('/:id', async (req, res) => {
