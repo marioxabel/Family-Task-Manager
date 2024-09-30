@@ -3,10 +3,6 @@ import Parent from './parent.js';
 import Child from './child.js';
 import Chore from './chore.js';
 
-// Initialize the models
-// const ParentModel = Parent(sequelize);
-// const ChildModel = Child(sequelize);
-// const ChoreModel = Chore(sequelize);
 
 // Define relationships
 Parent.hasMany(Child, {
