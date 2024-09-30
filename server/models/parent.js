@@ -1,8 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/connection.js';  // Import sequelize instance
 import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique keys
 
-class Child extends Model {
+class Parent extends Model {
   // Method to hash the password
   static async setPassword(password) {
     const salt = await bcrypt.genSalt(10); // Generate a salt
@@ -15,7 +16,7 @@ class Child extends Model {
   }
 }
 
-Child.init({
+Parent.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -41,37 +42,34 @@ Child.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  parent_id: { // Changed from parent_key to parent_id
-    type: DataTypes.INTEGER, // This should be the same type as the Parent model's primary key
+  parent_key: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4, // Automatically generate a UUID
+    unique: true,
     allowNull: false,
-    references: {
-      model: 'parents', // This should match the name of the Parents table
-      key: 'id', // This should match the primary key in the Parents table
-    },
   },
 }, {
   sequelize,
-  modelName: 'Child',
-  tableName: 'children',
+  modelName: 'Parent',
+  tableName: 'parents',
   schema: 'public',
   timestamps: true,  // Includes createdAt and updatedAt
   hooks: {
-    // Before creating a child, hash the password
-    beforeCreate: async (child) => {
-      child.password = await Child.setPassword(child.password);
-      // Optionally, check if parent_id is provided
-      if (!child.parent_id) {
-        // If parent_id is not provided, throw an error or handle it accordingly
-        throw new Error('Parent ID must be provided for the child.');
+    // Before creating a parent, hash the password
+    beforeCreate: async (parent) => {
+      parent.password = await Parent.setPassword(parent.password);
+      // Optionally, generate the parent_key here if needed
+      if (!parent.parent_key) {
+        parent.parent_key = uuidv4(); // Generate a UUID for parent_key if not provided
       }
     },
-    // Before updating a child, hash the new password if it has changed
-    beforeUpdate: async (child) => {
-      if (child.changed('password')) {
-        child.password = await Child.setPassword(child.password);
+    // Before updating a parent, hash the new password if it has changed
+    beforeUpdate: async (parent) => {
+      if (parent.changed('password')) {
+        parent.password = await Parent.setPassword(parent.password);
       }
     },
   },
 });
 
-export default Child;
+export default Parent;
