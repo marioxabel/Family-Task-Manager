@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ChildTaskList from '../ChildTaskList';
 import AddTaskModal from '../AddTaskModal';
 import ChildProfileSwitcher from '../ChildProfileSwitcher';
-import CopyKeyComponent from '../CopyKeyComponent';  // Importa el nuevo componente
+import CopyKeyComponent from '../CopyKeyComponent';
 
 const ParentPage = () => {
   const [selectedChild, setSelectedChild] = useState(null);
