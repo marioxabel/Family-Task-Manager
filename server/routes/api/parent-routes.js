@@ -32,6 +32,28 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// GET /parents/email/:email - Get a parent by email
+router.get('/email/:email', async (req, res) => {
+  const { email } = req.params;
+  try {
+    const parent = await Parent.findOne({
+      where: { email },
+      attributes: { exclude: ['password'] }
+    });
+    if (parent) {
+      res.json(parent);
+    } else {
+      res.status(404).json({ message: 'Parent not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+
+
+
 
 // GET /parents/:id/children - Get all children of a specific parent
 router.get('/:id/children', async (req, res) => {
@@ -55,6 +77,7 @@ router.get('/:id/children', async (req, res) => {
 
 // PUT /parents/:id - Update a parent by id
 router.put('/:id', async (req, res) => {
+  console.log('Request received for parent ID:', req.params.id);
   const { id } = req.params;
   const { first_name, last_name, password } = req.body;
   try {
