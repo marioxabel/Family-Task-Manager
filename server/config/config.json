@@ -1,21 +1,21 @@
 {
   "development": {
     "username": "postgres",
-    "password": "Name",
+    "password": "1234",
     "database": "family_task_manager_db",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "Name",
+    "password": "1234",
     "database": "family_task_manager_db",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": "Name",
+    "password": "1234",
     "database": "family_task_manager_db",
     "host": "127.0.0.1",
     "dialect": "postgres"
