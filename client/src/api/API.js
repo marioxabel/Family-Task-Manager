@@ -331,6 +331,33 @@ const retrieveChildById = async (id) => {
     }
 };
 
+// Retrieve a single child by email via GET request
+const retrieveChildByIdByEmail = async (email) => {
+    try {
+        
+        console.log('Fetching URL:', `http://localhost:3001/api/children/email/${email}`); // Update URL here
+
+        const response = await fetch(`http://localhost:3001/api/children/email/${email}`, { // Update URL here
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`,
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve child');
+        }
+
+        return data;
+    } catch (err) {
+        console.error('Error retrieving child:', err);
+        return {};
+    }
+};
+
+
 // Update a child by ID via PUT request
 const updateChild = async (id, childData) => {
     try {
@@ -415,6 +442,7 @@ export {
     deleteParent,
     retrieveChildrenByParentId,
     retrieveChildById,
+    retrieveChildByIdByEmail,
     updateChild,
     deleteChild,
     loginUser
