@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import auth from '../src/utils/auth';
+import auth from '../utils/auth';
 // import router from '../../server/routes/auth-routes';
 
 const Navbar = () => {
