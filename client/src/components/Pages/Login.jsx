@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import Auth from '../../src/utils/utils.js';
-import { loginUser } from "../../src/api/API.js";
+import Auth from '../../utils/utils.js';
+import { loginUser } from "../../api/API.js";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({

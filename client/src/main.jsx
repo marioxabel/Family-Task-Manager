@@ -6,11 +6,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import App from './App.jsx'
-import ChildPage from '../components/Pages/ChildPage.jsx';
-import Login from '../components/Pages/Login.jsx';
-import ParentPage from '../components/Pages/ParentPage.jsx';
-import Register from '../components/Pages/Register.jsx';
-import ErrorPage from '../components/Pages/ErrorPage.jsx';
+import ChildPage from'./components/Pages/ChildPage.jsx';
+import Login from './components/Pages/Login.jsx';
+import ParentPage from './components/Pages/ParentPage.jsx';
+import Register from './components/Pages/Register.jsx';
+import ErrorPage from './components/Pages/ErrorPage.jsx';
+import TestPage from './components/Pages/TestPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '/test',
+        element: <TestPage />,
       },
     ],
   },
