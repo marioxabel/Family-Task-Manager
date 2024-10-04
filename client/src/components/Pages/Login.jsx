@@ -22,9 +22,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
       const data = await loginUser(loginData);
       Auth.login(data.token);
       setCredentialsWrong(false);
+
+
     } catch (err) {
       console.error('Failed to login', err);
       setCredentialsWrong(true);
@@ -60,7 +63,7 @@ const Login = () => {
           selectedProfile={loginData.type}
           setSelectedProfile={(value) => setLoginData(prev => ({ ...prev, type: value }))} 
         />
-        <button type='submit' style={styles.enterButton}>Submit Form</button>
+        <button type='submit' style={styles.enterButton}>Login</button>
         {credentialsWrong && <p style={styles.errorText}>Wrong Credentials!</p>}
       </form>
     </div>
