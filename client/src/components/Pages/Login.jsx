@@ -27,6 +27,11 @@ const Login = () => {
       Auth.login(data.token);
       setCredentialsWrong(false);
 
+      if (loginData.type === "child") {
+        window.location.assign('/childpage');
+      } else {
+        window.location.assign('/parentpage');
+      }
 
     } catch (err) {
       console.error('Failed to login', err);

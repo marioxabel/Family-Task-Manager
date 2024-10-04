@@ -1,5 +1,5 @@
 // Helper function to get token
-const getToken = () => localStorage.getItem('token');
+const getToken = () => localStorage.getItem('id_token');
 
 //Retrieve all chores from the API
 const retrieveChores = async () => {
@@ -192,6 +192,7 @@ const retrieveParents = async () => {
 // Retrieve a single parent by ID via GET request
 const retrieveParentById = async (id) => {
     try {
+
         const response = await fetch(`http://localhost:3001/api/parents/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -211,6 +212,34 @@ const retrieveParentById = async (id) => {
         return {};
     }
 };
+
+// Retrieve a single parent by email via GET request
+const retrieveParentByEmail = async (email) => {
+    try {
+        
+        console.log('Fetching URL:', `http://localhost:3001/api/parents/email/${email}`); // Update URL here
+
+        const response = await fetch(`http://localhost:3001/api/parents/email/${email}`, { // Update URL here
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`,
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve parent');
+        }
+
+        return data;
+    } catch (err) {
+        console.error('Error retrieving parent:', err);
+        return {};
+    }
+};
+
+
 
 // Update a parent by ID via PUT request
 const updateParent = async (id, parentData) => {
@@ -302,6 +331,33 @@ const retrieveChildById = async (id) => {
     }
 };
 
+// Retrieve a single child by email via GET request
+const retrieveChildByIdByEmail = async (email) => {
+    try {
+        
+        console.log('Fetching URL:', `http://localhost:3001/api/children/email/${email}`); // Update URL here
+
+        const response = await fetch(`http://localhost:3001/api/children/email/${email}`, { // Update URL here
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`,
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve child');
+        }
+
+        return data;
+    } catch (err) {
+        console.error('Error retrieving child:', err);
+        return {};
+    }
+};
+
+
 // Update a child by ID via PUT request
 const updateChild = async (id, childData) => {
     try {
@@ -381,10 +437,12 @@ export {
     registerChild,
     retrieveParents,
     retrieveParentById,
+    retrieveParentByEmail,
     updateParent,
     deleteParent,
     retrieveChildrenByParentId,
     retrieveChildById,
+    retrieveChildByIdByEmail,
     updateChild,
     deleteChild,
     loginUser
