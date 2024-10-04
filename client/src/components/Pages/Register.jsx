@@ -22,7 +22,7 @@ export default function Register() {
 
   return (
     <div style={{ backgroundColor: '#e2e0ff', padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
-      <h1 style={{ textAlign: 'center', color: '#000000' }}>Register</h1>
+      <h1 style={{ textAlign: 'center', color: '#5e52c7', fontSize: '25px' }}>Register</h1>
 
       {/* First name field */}
       <input
