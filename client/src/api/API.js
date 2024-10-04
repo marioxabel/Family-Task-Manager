@@ -350,7 +350,7 @@ const deleteChild = async (id) => {
 // Log in a user (parent or child) and retrieve JWT token via POST request
 const loginUser = async (loginData) => {
     try {
-        const response = await fetch('http://localhost:3001/auth/login', {
+        const response = await fetch('/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
