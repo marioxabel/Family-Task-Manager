@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ChildTaskList from '../ChildTaskList';
 import AddTaskModal from '../AddTaskModal';
 import ChildProfileSwitcher from '../ChildProfileSwitcher';
 import CopyKeyComponent from '../CopyKeyComponent';
+import AuthService from '../../utils/utils'
+import { retrieveParentById } from '../../api/API';
 
 const ParentPage = () => {
   const [selectedChild, setSelectedChild] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [children, setChildren] = useState([ /* Lista de hijos del backend */ ]);
   
+  useEffect(() => {
+    const profile = AuthService.getProfile()
+    console.log(profile);
+    
+    // const parentInfo = async() => {
+    //   const parentData = await retrieveParentById(1)
+    //   console.log(parentData);
+      
+    //  }
+
+    // parentInfo()
+  })
+
+
   // Esta es la key del padre que viene del backend cuando se loguea
   const parentKey = '12345-ABCDE';  // Ejemplo, debes obtener esto desde el backend
 
