@@ -1,0 +1,83 @@
+:root {
+    /* declare a variable with `--` syntax */
+    --clarito: #e2e0ff;
+    --fuerte: #5e52c7;
+
+    /* Estilos globales */
+    body {
+        background-color: #f6f6fb;
+        /* Color de fondo suave */
+        font-family: 'Arial', sans-serif;
+        /* Tipografía limpia */
+    }
+
+    /* Títulos */
+    h1,
+    h3,
+    h5 {
+        color: var(--fuerte);
+        /* Color morado para los títulos */
+        font-weight: bold;
+    }
+
+    /* Botón de copiar key */
+    .copy-key-button {
+        background-color: var(--fuerte);
+        /* Fondo morado */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        padding: 5px 10px;
+
+    }
+
+    .copy-key-button:hover {
+        background-color: #4731a7;
+        /* Hover un poco más oscuro */
+    }
+
+    .copy-key-container {
+        font-size: 0.8rem;
+        margin-top: 10px;
+    }
+
+
+
+    /* Botón agregar tarea */
+    .btn-primary {
+        background-color: var(--fuerte);
+        border: none;
+        border-radius: 50px;
+        padding: 10px 30px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--fuerte);
+    }
+
+    /* Contenedores redondeados */
+    .container {
+        background-color: var(--clarito);
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    /* Listado de tareas */
+    .task-list .list-group-item {
+        border-radius: 20px;
+        padding: 15px;
+        font-size: 18px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos del modal */
+    .modal-content {
+        border-radius: 20px;
+        padding: 20px;
+    }
