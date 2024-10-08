@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <button style={styles.registerButton} onClick={() => window.location.assign("/register")}>
+        <button style={styles.registerButton} onClick={() => window.location.assign("/registration")}>
           Register
         </button>
       </header>
