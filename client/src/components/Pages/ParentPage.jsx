@@ -4,11 +4,12 @@ import AddTaskModal from '../AddTaskModal';
 import ChildProfileSwitcher from '../ChildProfileSwitcher';
 import CopyKeyComponent from '../CopyKeyComponent';
 import AuthService from '../../utils/utils'
-import { retrieveParentByEmail } from '../../api/API';
+import { retrieveParentByEmail, retrieveChildrenByParentId } from '../../api/API';
 
 const ParentPage = () => {
   const [parentData, setParentData] = useState({})
-  const [selectedChild, setSelectedChild] = useState(null);
+  // const [childrenData, setChildrenData]= useState({})
+  const [selectedChild, setSelectedChild] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [children, setChildren] = useState([ /* Lista de hijos del backend */ ]);
   
@@ -18,11 +19,27 @@ const ParentPage = () => {
     // Use email to get parent info and save it in parentData
     const getParentInfo = async() => {
       const parentInfo = await retrieveParentByEmail(profile.email)
+      const childrenInfo = await retrieveChildrenByParentId(parentInfo.id);
+      console.log(childrenInfo);
+      setChildren (childrenInfo)
+      setSelectedChild(childrenInfo[0])
       setParentData(parentInfo)
       console.log(parentInfo);      
      }
      getParentInfo()
   },[])
+
+  // useEffect(() => {
+  //   if (parentData) {
+  //     const getChildrenInfo = async () => {
+  //       const childrenInfo = await retrieveChildrenByParentId(parentData.id);
+  //       setChildrenData(childrenInfo);
+  //       console.log(childrenInfo);
+  //     };
+      
+  //     getChildrenInfo();
+  //   }
+  // }, [parentData]); // Ejecuta cuando `parentData` cambia
 
 
   // Esta es la key del padre que viene del backend cuando se loguea
@@ -45,7 +62,7 @@ const ParentPage = () => {
       {/* Encabezado */}
       <header className="d-flex justify-content-between align-items-center my-4">
         <h1>Parent Dashboard</h1>
-        <ChildProfileSwitcher selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
+        <ChildProfileSwitcher selectedChild={selectedChild} setSelectedChild={setSelectedChild} childrens={children} />
       </header>
 
       {/* Componente para mostrar y copiar la key */}
@@ -53,7 +70,7 @@ const ParentPage = () => {
 
       {/* Lista de tareas del hijo seleccionado */}
       <div className="task-list mb-4">
-        <h3>{selectedChild ? `${selectedChild.name}'s Tasks` : 'Select a Child'}</h3>
+        <h3>{selectedChild ? `${selectedChild.first_name}'s Tasks` : 'Select a Child'}</h3>
         {selectedChild ? (
           <ChildTaskList child={selectedChild} />
         ) : (

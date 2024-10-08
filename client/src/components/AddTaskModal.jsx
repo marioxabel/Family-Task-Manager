@@ -35,10 +35,6 @@ const AddTaskModal = ({ show, toggle, children }) => {
                         <Form.Control as="textarea" rows={3} value={description} onChange={(e) => setDescription(e.target.value)} />
                     </Form.Group>
 
-                    <Form.Group controlId="points" className="mt-3">
-                        <Form.Label>Points</Form.Label>
-                        <Form.Control type="number" value={points} onChange={(e) => setPoints(e.target.value)} />
-                    </Form.Group>
 
                     {/* Dropdown para seleccionar el hijo */}
                     <Form.Group controlId="childSelect" className="mt-3">
@@ -51,7 +47,7 @@ const AddTaskModal = ({ show, toggle, children }) => {
                             <option value="">Select a child...</option>
                             {children.map((child) => (
                                 <option key={child.id} value={child.id}>
-                                    {child.name}
+                                    {child.first_name}
                                 </option>
                             ))}
                         </Form.Control>
