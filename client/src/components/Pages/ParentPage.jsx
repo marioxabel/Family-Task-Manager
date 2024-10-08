@@ -86,7 +86,7 @@ const ParentPage = () => {
       </div>
 
       {/* Modal para agregar tarea */}
-      {showModal && <AddTaskModal show={showModal} toggle={toggleModal} children={children} onAddTask={handleAddTask} />}
+      {showModal && <AddTaskModal show={showModal} toggle={toggleModal} childrens={children} onAddTask={handleAddTask} />}
     </div>
   );
 };

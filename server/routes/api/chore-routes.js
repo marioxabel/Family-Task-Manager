@@ -63,6 +63,8 @@ router.get('/child/:id', async (req, res) => {
 
 // POST /chores - Create a new chore
 router.post('/', async (req, res) => {
+  console.log(req.body);
+  
   const { name, description, status, parent_id, child_id } = req.body;
   if (!name || !description || !status || !parent_id || !child_id) {
     return res.status(400).json({ message: 'Chore information incomplete' });
@@ -77,8 +79,8 @@ router.post('/', async (req, res) => {
 
 // PUT /chores/:id - Update a chore by id
 router.put('/:id', async (req, res) => {
-  console.log('===========================')
-    console.log(req.body)
+  // console.log('===========================')
+  //   console.log(req.body)
   const { id } = req.params;
   // const { name, description, status, parent_id, child_id } = req.body;
   
