@@ -48,11 +48,75 @@ export const login = async (req, res) => {
   return res.json({ token });  // Send the token as a JSON response
 };
 
+//Registration function to register a user (parent or child)
+export const register = async (req, res) => {
+  console.log("Register route hit"); //Debugging line
+  const {firstName, lastName, email, password, userType, parentKey} = req.body;
+
+  try {
+    //Check if the user alredy exists (in both parent and child tables)
+    let existingUser = await Parent.findOne({ where: { email }});
+    if (!existingUser) {
+      existingUser = await Child.findOne({ where: {email} });
+    }
+
+    if (existingUser) {
+      return res.status(400).json({message: 'User already exists'});
+    }
+
+    //Hast the user's password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    //Based on the userType, create a parent or child user
+    let newUser;
+    if (userType === 'parent') {
+      newUser = await Parent.create({
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+      });
+    } else if (userType === 'child') {
+      newUser = await Child.create({
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword, 
+        parentKey //Include parentKey for child registration
+      });
+    } else {
+      return res.status(400).json({ message: 'Invalid user type'});
+    }
+
+    //Generate a JWT token after successful registration
+    const secretKey = process.env.JWT_SECRET_KEY || '';
+    const token = jwt.sign({ email, userType }, secretKey, { expiresIn: '1h'});
+
+    //Respond with the new user and token
+    return res.status(201).json({
+      message: 'User registered successfully',
+      token, //Send the JWT token
+      user: {
+        id: newUser.id, 
+        email: newUser.email,
+        userType: userType
+      }
+    });
+
+  } catch (error) {
+    console.error('Error during registration', error);
+    return res.status(500).json({message: 'Server error during registration'});
+  }
+};
+
 // Create a new router instance
 const router = Router();
 
 // POST /login - Login a user
 router.post('/login', login);  // Define the login route
+
+// POST /register - Register a user (parent or child)
+router.post('/register', register);
 
 router.get('/test', (req, res) => {
   console.log("Test route hit"); // Add this line for debugging

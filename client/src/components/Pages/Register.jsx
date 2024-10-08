@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //Register form inputs
 export default function Register() {
@@ -7,9 +8,11 @@ export default function Register() {
     lastName: '',
     email: '',
     password: '',
-    userType: '',
-    parentKey: '',
+    type: 'parent',
+    parent_key: '',
   });
+  // const [showParentKey, setShowParentKey] = useState(false);
+  const navigate = useNavigate();
 
   //Event handler for form inputs
   const handleChange = (e) => {
@@ -20,72 +23,120 @@ export default function Register() {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      type: formData.type,
+      parent_key: formData.type === 'child' ? formData.parent_key : null,
+    };
+    console.log(payload);
+
+    try {
+      const response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok){
+        navigate('/');
+      }
+
+      // const result = await response.json();
+
+      // if (response.ok) {
+      //   //Store JWT token
+      //   localStorage.setItem('token', result.token);
+
+      //   if (formData.userType === 'parent') {
+      //     navigate('/ParentPage');
+      //   } else {
+      //     navigate('/ChildPage');
+      //   }
+      // } else {
+      //   console.error('Registration failed:', result.message);
+      // }
+
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  };
+
   return (
     <div style={{ backgroundColor: '#e2e0ff', padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
       <h1 style={{ textAlign: 'center', color: '#5e52c7', fontSize: '25px' }}>Register</h1>
 
       {/* First name field */}
-      <input
-        type="text"
-        name="firstName"
-        placeholder="First Name"
-        value={formData.firstName}
-        onChange={handleChange}
-        style={inputStyle}
-      />
-      {/* Last name field */}
-      <input
-        type="text"
-        name="lastName"
-        placeholder="Last Name"
-        value={formData.lastName}
-        onChange={handleChange}
-        style={inputStyle}
-      />
-      {/* Email field */}
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        style={inputStyle}
-      />
-      {/* Password field */}
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={formData.password}
-        onChange={handleChange}
-        style={inputStyle}
-      />
-      {/* Usertype options */}
-      <select
-        name="userType"
-        value={formData.userType}
-        onChange={handleChange}
-        style={inputStyle}
-      >
-        <option value="" disabled>
-          User’s type
-        </option>
-        <option value="parent">Parent</option>
-        <option value="child">Child</option>
-      </select>
-      {/* Conditional type */}
-      {formData.userType === 'child' && (
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="parentKey"
-          placeholder="Parent’s key"
-          value={formData.parentKey}
+          name="firstName"
+          placeholder="First Name"
+          value={formData.firstName}
           onChange={handleChange}
           style={inputStyle}
         />
-      )}
-      {/* Register button */}
-      <button style={buttonStyle}>Register</button>
+        {/* Last name field */}
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          value={formData.lastName}
+          onChange={handleChange}
+          style={inputStyle}
+        />
+        {/* Email field */}
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          style={inputStyle}
+        />
+        {/* Password field */}
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          style={inputStyle}
+        />
+        {/* Usertype options */}
+        <select
+          name="type"
+          value={formData.userType}
+          onChange={handleChange}
+          style={inputStyle}
+        >
+          <option value="" disabled>
+            User’s type
+          </option>
+          <option value="parent">Parent</option>
+          <option value="child">Child</option>
+        </select>
+        {/* Conditional type */}
+        {formData.type === 'child' && (
+          <input
+            type="text"
+            name="parent_key"
+            placeholder="Parent’s key"
+            value={formData.parent_key}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        )}
+        {/* Register button */}
+        <button type="submit" style={buttonStyle}>Register</button>
+      </form>
     </div>
   );
 }
