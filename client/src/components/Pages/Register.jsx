@@ -9,7 +9,7 @@ export default function Register() {
     email: '',
     password: '',
     type: 'parent',
-    parentKey: '',
+    parent_key: '',
   });
   // const [showParentKey, setShowParentKey] = useState(false);
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function Register() {
       email: formData.email,
       password: formData.password,
       type: formData.type,
-      parentKey: formData.type === 'child' ? formData.parentKey : null,
+      parent_key: formData.type === 'child' ? formData.parent_key : null,
     };
     console.log(payload);
 
@@ -124,12 +124,12 @@ export default function Register() {
           <option value="child">Child</option>
         </select>
         {/* Conditional type */}
-        {formData.userType === 'child' && (
+        {formData.type === 'child' && (
           <input
             type="text"
-            name="parentKey"
+            name="parent_key"
             placeholder="Parent’s key"
-            value={formData.parentKey}
+            value={formData.parent_key}
             onChange={handleChange}
             style={inputStyle}
           />
