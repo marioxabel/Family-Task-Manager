@@ -2,10 +2,11 @@
     /* declare a variable with `--` syntax */
     --clarito: #e2e0ff;
     --fuerte: #5e52c7;
+   
 
     /* Estilos globales */
     body {
-        background-color: #f6f6fb;
+        background-color:#c4befa;
         /* Color de fondo suave */
         font-family: 'Arial', sans-serif;
         /* Tipografía limpia */
@@ -18,6 +19,7 @@
         color: var(--fuerte);
         /* Color morado para los títulos */
         font-weight: bold;
+       
     }
 
     /* Botón de copiar key */
@@ -42,7 +44,8 @@
         font-size: 0.8rem;
         margin-top: 10px;
     }
-
+    
+  
 
 
     /* Botón agregar tarea */
@@ -64,7 +67,9 @@
         background-color: var(--clarito);
         border-radius: 20px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        padding: 20px;
+        padding: 60px;
+       
+
     }
 
     /* Listado de tareas */
@@ -81,4 +86,68 @@
         border-radius: 20px;
         padding: 20px;
     }
+}
+
+ /* Estilos de la tabla */
+table {
+
+    width: 100%;
+   
+  
+}
+
+ /* Estilos de los títulos */
+th {
+    background-color: #c4befa;
+    height: 50px;
+    border-radius: 30px;
+      
+}
+
+ /* Estilos de las rows */
+td {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+}
+
+ /* Diferencía cada row */
+tbody tr:nth-child(odd) {
+    background-color: #c4befa;
+    color: #5e52c7;
+    
+   
+}
+
+tbody tr:nth-child(even) {
+    
+    background-color:#4731a7;
+    color: white;
+}
+
+
+
+
+/* Estilos para los botones de la navbar */
+.navbar-btn {
+
+  
+    background-color: #4731a7;
+    color: white;
+    border: none;
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    margin-right: 20px; 
+}
+
+.navbar-btn-login {
+    opacity: 0%;
+}
+
+/* Efecto hover para los botones */
+.navbar-btn:hover {
+    background-color: #5e52c7; 
 }

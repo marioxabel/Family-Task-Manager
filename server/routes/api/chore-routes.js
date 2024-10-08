@@ -77,21 +77,27 @@ router.post('/', async (req, res) => {
 
 // PUT /chores/:id - Update a chore by id
 router.put('/:id', async (req, res) => {
+  console.log('===========================')
+    console.log(req.body)
   const { id } = req.params;
-  const { name, description, status, parent_id, child_id } = req.body;
+  // const { name, description, status, parent_id, child_id } = req.body;
+  
   try {
     const chore = await Chore.findByPk(id);
+    
     if (!chore) {
       return res.status(404).json({ message: 'Chore not found' });
     }
-    chore.name = name;
-    chore.description = description;
-    chore.status = status;
-    chore.parent_id = parent_id;
-    chore.child_id = child_id;
-    await chore.save();
+     await chore.update(req.body)
+    // chore.name = name;
+    // chore.description = description;
+    // chore.status = status;
+    // chore.parent_id = parent_id;
+    // chore.child_id = child_id;
+    // await chore.save();
     res.json(chore);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error.message });
   }
 });

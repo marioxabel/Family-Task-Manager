@@ -1,6 +1,30 @@
 // Helper function to get token
 const getToken = () => localStorage.getItem('id_token');
 
+
+const retrieveChoresbyChildrenId = async (id) => {
+    try {
+        console.log('Fetching URL:', `http://localhost:3001/api/chores/child/${id}`); // Update URL here
+
+        const response = await fetch(`http://localhost:3001/api/chores/child/${id}`, { // Corrected URL
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`,
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve chores');
+        }
+
+        return data;
+    } catch (err) {
+        console.error('Error retrieving chores:', err);
+        return {};
+    }
+};
 //Retrieve all chores from the API
 const retrieveChores = async () => {
     try {
@@ -72,28 +96,57 @@ async function addChore(body) {
 };
 
 //Update an existing chore via PUT request to the API
-const updateChore = async (id, body) => {
+// const updateChore = async (id, body) => {
+//     try {
+//         const response = await fetch(`/api/chores/${id}`, {
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${getToken()}`,
+//             },
+//             body: JSON.stringify(body)
+//         });
+
+//         const data = await response.json();
+
+//         if (!response.ok) {
+//             throw new Error('Invalid API response, check network tab!');
+//         }
+//         return data;
+//     } catch (err) {
+//         console.log('Error from chore updating: ', err);
+//         return Promise.reject('Could not update chore');
+//     }
+// };
+const updateChore = async (id, status) => {
     try {
+
+        console.log('Fetching URL:', `http://localhost:3001/api/chores/${id}`)
         const response = await fetch(`/api/chores/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getToken()}`,
-            },
-            body: JSON.stringify(body)
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error('Invalid API response, check network tab!');
-        }
-        return data;
-    } catch (err) {
-        console.log('Error from chore updating: ', err);
-        return Promise.reject('Could not update chore');
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify({ status }),
+      });
+      console.log(response)
+      if (!response.ok) {
+        throw new Error('Failed to update chore status');
+      }
+  
+      return await response.json();
+    } catch (error) {
+        console.log(status)
+        console.log(JSON.stringify(error))
+      console.error('Error updating chore status:', error);
+      throw error;
     }
-};
+  };
+
+
+
+
 
 //Delete a chore by ID via DELETE request to the API
 const deleteChore = async (id) => {
@@ -216,7 +269,7 @@ const retrieveParentById = async (id) => {
 // Retrieve a single parent by email via GET request
 const retrieveParentByEmail = async (email) => {
     try {
-        
+
         console.log('Fetching URL:', `http://localhost:3001/api/parents/email/${email}`); // Update URL here
 
         const response = await fetch(`http://localhost:3001/api/parents/email/${email}`, { // Update URL here
@@ -334,7 +387,7 @@ const retrieveChildById = async (id) => {
 // Retrieve a single child by email via GET request
 const retrieveChildByIdByEmail = async (email) => {
     try {
-        
+
         console.log('Fetching URL:', `http://localhost:3001/api/children/email/${email}`); // Update URL here
 
         const response = await fetch(`http://localhost:3001/api/children/email/${email}`, { // Update URL here
@@ -427,9 +480,14 @@ const loginUser = async (loginData) => {
     }
 };
 
+
+
+
+
 export {
     retrieveChores,
     retrieveChore,
+    retrieveChoresbyChildrenId,
     addChore,
     updateChore,
     deleteChore,
