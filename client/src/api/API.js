@@ -73,6 +73,8 @@ const retrieveChore = async (id) => {
 
 //Add a new chore via POST request to the API
 async function addChore(body) {
+    console.log(body);
+    
     try {
         const response = await fetch('/api/chores/', {
             method: 'POST',

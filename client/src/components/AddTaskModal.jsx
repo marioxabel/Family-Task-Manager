@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import {addChore} from '../api/API'
 
-const AddTaskModal = ({ show, toggle, children }) => {
+const AddTaskModal = ({ show, toggle, childrens }) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
     const [points, setPoints] = useState(0);
-    const [selectedChild, setSelectedChild] = useState('');  // Estado para almacenar el hijo seleccionado
+    const [selectedChild, setSelectedChild] = useState({});  // Estado para almacenar el hijo seleccionado
 
     const handleSubmit = () => {
         const newTask = {
-            taskName,
+            name:taskName,
             description,
-            points,
-            childId: selectedChild,  // El ID del hijo seleccionado
+            status:'pending',
+            parent_id: selectedChild.parent_id,
+            child_id: selectedChild.id,  // El ID del hijo seleccionado
         };
         // Lógica para agregar la tarea
+        addChore(newTask)
         toggle();  // Cierra el modal después de agregar la tarea
     };
 
@@ -35,23 +38,19 @@ const AddTaskModal = ({ show, toggle, children }) => {
                         <Form.Control as="textarea" rows={3} value={description} onChange={(e) => setDescription(e.target.value)} />
                     </Form.Group>
 
-                    <Form.Group controlId="points" className="mt-3">
-                        <Form.Label>Points</Form.Label>
-                        <Form.Control type="number" value={points} onChange={(e) => setPoints(e.target.value)} />
-                    </Form.Group>
 
                     {/* Dropdown para seleccionar el hijo */}
                     <Form.Group controlId="childSelect" className="mt-3">
                         <Form.Label>Select Child</Form.Label>
                         <Form.Control
                             as="select"
-                            value={selectedChild}
-                            onChange={(e) => setSelectedChild(e.target.value)}
+                            value={selectedChild.id}
+                            onChange={(e) => setSelectedChild(childrens.find(c => c.id == e.target.value))}
                         >
                             <option value="">Select a child...</option>
-                            {children.map((child) => (
+                            {childrens.map((child) => (
                                 <option key={child.id} value={child.id}>
-                                    {child.name}
+                                    {child.first_name}
                                 </option>
                             ))}
                         </Form.Control>
