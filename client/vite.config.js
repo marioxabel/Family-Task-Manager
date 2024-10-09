@@ -23,6 +23,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false
       },
+      '/quotes': {  
+        target: 'https://zenquotes.io',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/quotes/, ''),
+        secure: false
+      }
     }
   }
 })

@@ -55,7 +55,7 @@ export default function ChildPage() {
       <h1 style={{ paddingTop: '20px', paddingBottom: '20px', paddingLeft: '10px' }}>
         Hi {childData?.first_name ? `${childData.first_name}! these are your chores for today:` : 'Loading...'}
       </h1>
-      <MotivationalQuote/>
+      
       <table style={{ alignContent: 'center'}}>
         <tbody>
           {childChores.map((chore, index) => (
@@ -85,6 +85,13 @@ export default function ChildPage() {
           ))}
         </tbody>
       </table>
+
+      <div >
+      <h1 style={{marginTop:'2.5rem', fontSize:'30px'}}>Feeling unmotivated? This might help...</h1>
+      <MotivationalQuote/>
     </div>
+  
+    </div>
+    
   );
 }
