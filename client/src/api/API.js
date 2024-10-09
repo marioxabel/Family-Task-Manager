@@ -4,9 +4,9 @@ const getToken = () => localStorage.getItem('id_token');
 
 const retrieveChoresbyChildrenId = async (id) => {
     try {
-        console.log('Fetching URL:', `http://localhost:3001/api/chores/child/${id}`); // Update URL here
+        console.log('Fetching URL:', `/api/chores/child/${id}`); // Update URL here
 
-        const response = await fetch(`http://localhost:3001/api/chores/child/${id}`, { // Corrected URL
+        const response = await fetch(`/api/chores/child/${id}`, { // Corrected URL
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getToken()}`,
