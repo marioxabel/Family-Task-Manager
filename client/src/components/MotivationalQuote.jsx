@@ -5,9 +5,9 @@ const MotivationalQuote = () => {
   const [quote, setQuote] = useState('');
 
   useEffect(() => {
-    axios.get('http://api.quotable.io/random')
+    axios.get('/quotes/api/random')  
       .then(response => {
-        setQuote(response.data.content);
+        setQuote(response.data[0].q); 
       })
       .catch(error => {
         console.error('Error fetching the quote:', error);
