@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import AuthService from '../../utils/utils';
 import { retrieveChildByIdByEmail, retrieveChoresbyChildrenId, updateChore, retrieveChore } from '../../api/API'; // Añade esta función
+import MotivationalQuote from '../MotivationalQuote';
+
 
 export default function ChildPage() {
   const [childData, setChildData] = useState({});
@@ -53,7 +55,7 @@ export default function ChildPage() {
       <h1 style={{ paddingTop: '20px', paddingBottom: '20px', paddingLeft: '10px' }}>
         Hi {childData?.first_name ? `${childData.first_name}! these are your chores for today:` : 'Loading...'}
       </h1>
-
+      <MotivationalQuote/>
       <table style={{ alignContent: 'center'}}>
         <tbody>
           {childChores.map((chore, index) => (

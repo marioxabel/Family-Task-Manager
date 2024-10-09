@@ -5,6 +5,7 @@ import ChildProfileSwitcher from '../ChildProfileSwitcher';
 import CopyKeyComponent from '../CopyKeyComponent';
 import AuthService from '../../utils/utils'
 import { retrieveParentByEmail, retrieveChildrenByParentId } from '../../api/API';
+import DadJoke from '../DadJoke'
 
 const ParentPage = () => {
   const [parentData, setParentData] = useState({})
@@ -62,6 +63,7 @@ const ParentPage = () => {
       {/* Encabezado */}
       <header className="d-flex justify-content-between align-items-center my-4">
         <h1>Parent Dashboard</h1>
+        
         <ChildProfileSwitcher selectedChild={selectedChild} setSelectedChild={setSelectedChild} childrens={children} />
       </header>
 
@@ -87,7 +89,9 @@ const ParentPage = () => {
 
       {/* Modal para agregar tarea */}
       {showModal && <AddTaskModal show={showModal} toggle={toggleModal} childrens={children} onAddTask={handleAddTask} />}
+      <DadJoke/>
     </div>
+    
   );
 };
 
