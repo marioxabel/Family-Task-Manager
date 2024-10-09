@@ -19,6 +19,7 @@ const AddTaskModal = ({ show, toggle, childrens }) => {
         // Lógica para agregar la tarea
         addChore(newTask)
         toggle();  // Cierra el modal después de agregar la tarea
+        window.location.reload(); // Refresh the page
     };
 
     return (

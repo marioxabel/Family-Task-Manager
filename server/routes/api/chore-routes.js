@@ -51,11 +51,11 @@ router.get('/child/:id', async (req, res) => {
       // Fetch all chores where the parent_id matches the given parent ID
       const chores = await Chore.findAll({ where: { child_id: id } });
       
-      if (chores.length > 0) {
-        res.json(chores);
-      } else {
-        res.status(404).json({ message: 'No chores found for this parent' });
-      }
+      // if (chores.length > 0) {
+      res.json(chores);
+      // } else {
+      //   res.status(404).json({ message: 'No chores found for this child' });
+      // }
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

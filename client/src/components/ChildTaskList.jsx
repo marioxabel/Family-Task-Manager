@@ -11,7 +11,7 @@ const ChildTaskList = ({ child }) => {
     const [childChores, setChildChores] = useState([]);
 
     useEffect(() => {
-        console.log(child);
+        console.log("child", child);
         const getChildChores = async () => {
             try {
 
@@ -24,15 +24,17 @@ const ChildTaskList = ({ child }) => {
         };
         if (child.id) {
             getChildChores();
+            console.log("child chores:" + Array.isArray(childChores));
 
         }
     }, [child]);
 
     return (
+
         <ListGroup className="task-list">
             <table style={{ alignContent: 'center' }}>
                 <tbody>
-                    {childChores.map((chore, index) => (
+                    {childChores.length < 0 ? <tr></tr> : childChores.map((chore, index) => (
                         <tr key={index}>
                             <td style={{
                                 width: '80%',
