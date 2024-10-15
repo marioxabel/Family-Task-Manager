@@ -5,6 +5,7 @@ import express from 'express';
 import cors from 'cors'; // Add this line
 import { sequelize } from './models/index.js';
 import routes from './routes/index.js';
+import path from 'node:path';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,10 +16,16 @@ app.use(express.static('../client/dist'));
 app.use(express.json());
 
 // Mount routes 
-app.get('/test', (req, res) => {
-  res.send('Server is working!');
-});
+// app.get('/test', (req, res) => {
+//   res.send('Server is working!');
+// });
 app.use('/', routes); 
+
+if (process.env.NODE_ENV === 'production') {
+app.get('*', (_req, res) => {
+res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+})
+};
 
 // Sync database and start the server
 sequelize.sync()
